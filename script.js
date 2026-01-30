@@ -52,31 +52,51 @@ if (bookingForm) {
         const checkedServices = Array.from(bookingForm.querySelectorAll('input[name="services"]:checked')).map(cb => cb.value);
         const extra = document.getElementById('booking-extra').value.trim();
 
-        let apiUrl = (typeof window.ALEX_BOOKING_API_URL !== 'undefined' && window.ALEX_BOOKING_API_URL)
+        const apiBase = (typeof window.ALEX_BOOKING_API_URL !== 'undefined' && window.ALEX_BOOKING_API_URL)
             ? String(window.ALEX_BOOKING_API_URL).trim().replace(/\/$/, '')
             : '';
-        if (apiUrl && !apiUrl.endsWith('/api/booking')) apiUrl = apiUrl + '/api/booking';
+        const apiKey = (typeof window.ALEX_BOOKING_API_KEY !== 'undefined' && window.ALEX_BOOKING_API_KEY)
+            ? String(window.ALEX_BOOKING_API_KEY).trim()
+            : '';
 
-        const payload = { name, phone, email, registration, services: checkedServices, extra };
+        // Lead API: name, email, phone?, message?
+        const servicesText = checkedServices.length > 0 ? checkedServices.join(', ') : '';
+        const messageParts = [
+            registration && 'Registreringsnummer: ' + registration,
+            servicesText && 'Önskade tjänster: ' + servicesText,
+            extra && 'Ytterligare information: ' + extra
+        ].filter(Boolean);
+        const message = messageParts.join('\n\n') || undefined;
 
-        if (apiUrl) {
+        const leadPayload = { name, email, phone: phone || undefined, message };
+
+        if (apiBase && apiKey) {
             const submitBtn = bookingForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             submitBtn.disabled = true;
             submitBtn.textContent = 'Skickar...';
             try {
-                const res = await fetch(apiUrl, {
+                const res = await fetch(apiBase + '/api/lead', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-API-Key': apiKey
+                    },
+                    body: JSON.stringify(leadPayload)
                 });
                 const data = await res.json().catch(() => ({}));
                 if (res.ok) {
-                    alert(data.message || 'Tack! Vi återkommer till dig.');
+                    alert(data.status === 'ok' ? 'Tack! Vi återkommer till dig.' : (data.message || 'Tack!'));
                     closeBookingModal();
                     bookingForm.reset();
                 } else {
-                    alert(data.error || 'Något gick fel. Försök igen.');
+                    const detail = data.detail;
+                    let msg = 'Något gick fel. Försök igen.';
+                    if (res.status === 401) msg = 'Ogiltig konfiguration. Kontakta oss gärna direkt.';
+                    else if (res.status === 429) msg = 'För många försök. Vänta en stund och försök igen.';
+                    else if (typeof detail === 'string') msg = detail;
+                    else if (Array.isArray(detail) && detail[0] && detail[0].msg) msg = detail.map(d => d.msg).join(' ');
+                    alert(msg);
                 }
             } catch (err) {
                 console.error(err);

@@ -315,8 +315,11 @@
         </div>
     </div>
 
-    <!-- Set your Railway backend URL when deploying (e.g. https://your-app.railway.app) -->
-    <script>window.ALEX_BOOKING_API_URL = '';</script>
+    <!-- Lead API (Odoo backend on Railway). Replace with env/build vars if you need to hide the key. -->
+    <script>
+        window.ALEX_BOOKING_API_URL = 'https://odoobackend-production-c3c9.up.railway.app';
+        window.ALEX_BOOKING_API_KEY = 'ff94829249676f4c1413417be10202aac74446076c65bdb5dc7c678034ba64e7';
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
