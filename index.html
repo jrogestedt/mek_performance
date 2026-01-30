@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mek Performance - Premium rekond & detailing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="logo.jpg" alt="Mek Performance" class="logo-img">
+                </div>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="#hem">Hem</a></li>
+                        <li><a href="#tjanster">Tjänster</a></li>
+                        <li><a href="#galleri">Galleri</a></li>
+                        <li><a href="#kontakt">Kontakt</a></li>
+                    </ul>
+                </nav>
+                <div class="phone">
+                    <a href="tel:0720179297" class="phone-link">
+                        <svg class="phone-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        <span>072-017 92 97</span>
+                    </a>
+                </div>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hem">
+        <div class="hero-video-wrapper">
+            <video 
+                class="hero-video"
+                autoplay
+                muted
+                loop
+                playsinline
+                src="Screen Recording 2026-01-30 at 20.36.33.mov">
+            </video>
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Välkommen till Mek Performance!</h1>
+                <button type="button" class="btn btn-primary open-booking-modal">Boka Tid</button>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg class="scroll-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <h2 class="section-title">Om oss</h2>
+            <p class="about-text">
+                Återställer bilens glans, både på insidan och utsidan
+            </p>
+            <p class="about-description">
+                På Mek Performance återställer vi din bils glans med passion och expertis. Vårt kvalificerade team arbetar med högkvalitativa produkter från Koch Chemie för att leverera förstklassiga rekonditioneringstjänster. Vi erbjuder allt från noggrann handtvätt och professionell polering till avancerat keramiskt lackskydd – alltid med fokus på kvalitet, noggrannhet och ett resultat utöver det vanliga.
+            </p>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="welcome">
+        <div class="container">
+            <h2 class="section-title">Välkommen till Mek Performance</h2>
+            <p class="welcome-subtitle">Premium rekond & detailing</p>
+            <p class="welcome-text">
+                Från invändig djuprengöring till långvarigt keramiskt lackskydd – vi återställer och skyddar din bil med precision, omtanke och perfektion.
+            </p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="tjanster">
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-number">01</div>
+                    <h3 class="service-title">Exterior Detailing</h3>
+                </div>
+                <div class="service-card">
+                    <div class="service-number">02</div>
+                    <h3 class="service-title">Interior Detailing</h3>
+                </div>
+                <div class="service-card">
+                    <div class="service-number">03</div>
+                    <h3 class="service-title">Paint Correction</h3>
+                </div>
+                <div class="service-card">
+                    <div class="service-number">04</div>
+                    <h3 class="service-title">Ceramic Coating</h3>
+                </div>
+                <div class="service-card">
+                    <div class="service-number">05</div>
+                    <h3 class="service-title">Engine Restoration</h3>
+                </div>
+                <div class="service-card">
+                    <div class="service-number">06</div>
+                    <h3 class="service-title">Polimering</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Vanliga frågor</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Vad erbjuder ni?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Vi erbjuder en komplett range av rekonditioneringstjänster inklusive exterior och interior detailing, paint correction, keramiskt lackskydd, motorrestaurering och polimering.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Hur bokar jag en tid?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Du kan boka en tid genom att ringa Alex på 072-017 92 97 eller kontakta oss via e-post på mek.performance@gmail.com. Vi hjälper dig gärna att hitta en tid som passar dig.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Vilka produkter och märken använder ni?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Vi använder högkvalitativa produkter från Koch Chemie för att säkerställa förstklassiga resultat i alla våra tjänster.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Vad kostar era tjänster?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Priserna varierar beroende på vilken tjänst du väljer och bilens storlek. Kontakta oss för en personlig offert anpassad efter dina behov.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-contact">
+                <h3>Har du ytterligare frågor?</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="kontakt">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-image">
+                    <img src="logo.jpg" alt="Mek Performance">
+                </div>
+                <div class="contact-info">
+                    <h2>Alex Ljung</h2>
+                    <p class="contact-role">Mekaniker</p>
+                    <p class="contact-phone">Ring Alex på: <a href="tel:0720179297">072-017 92 97</a></p>
+                    <p class="contact-description">
+                        Kontakta mig så berättar jag mer.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="galleri">
+        <div class="container">
+            <h2 class="section-title">Galleri</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&h=400&fit=crop" alt="Galleri bild 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1492144534654-ae79c964c9d7?w=600&h=400&fit=crop" alt="Galleri bild 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop" alt="Galleri bild 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600&h=400&fit=crop" alt="Galleri bild 4">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&h=400&fit=crop" alt="Galleri bild 5">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1492144534654-ae79c964c9d7?w=600&h=400&fit=crop" alt="Galleri bild 6">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop" alt="Galleri bild 7">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600&h=400&fit=crop" alt="Galleri bild 8">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&h=400&fit=crop" alt="Galleri bild 9">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1492144534654-ae79c964c9d7?w=600&h=400&fit=crop" alt="Galleri bild 10">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop" alt="Galleri bild 11">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600&h=400&fit=crop" alt="Galleri bild 12">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&h=400&fit=crop" alt="Galleri bild 13">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1492144534654-ae79c964c9d7?w=600&h=400&fit=crop" alt="Galleri bild 14">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop" alt="Galleri bild 15">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <h2>Mek Performance</h2>
+                    </div>
+                    <p>Vi återställer din bils glans med passion och expertis. Alltid noggrant, alltid förstklassigt.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Snabblänkar</h3>
+                    <ul class="footer-links">
+                        <li><a href="#hem">Om oss</a></li>
+                        <li><a href="#tjanster">Tjänster</a></li>
+                        <li><a href="#galleri">FAQ</a></li>
+                        <li><a href="#kontakt">Kontakt</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Kontakt</h3>
+                    <p>Gunnarsbol gatan, 661 94 Säffle</p>
+                    <p><a href="tel:0720179297">072-017 92 97</a></p>
+                    <p><a href="mailto:mek.performance@gmail.com">mek.performance@gmail.com</a></p>
+                </div>
+            </div>
+            <div class="footer-map">
+                <iframe src="https://www.google.com/maps?q=Gunnarsbol+gatan,+661+94+S%C3%A4ffle,+Sweden&output=embed" width="100%" height="220" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mek Performance plats"></iframe>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Mek Performance. Alla rättigheter förbehållna.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="booking-modal" id="booking-modal" aria-hidden="true">
+        <div class="booking-modal-overlay"></div>
+        <div class="booking-modal-content">
+            <button type="button" class="booking-modal-close" aria-label="Stäng">&times;</button>
+            <h2 class="booking-modal-title">Boka Tid</h2>
+            <p class="booking-modal-intro">Fyll i uppgifterna nedan så återkommer vi till dig.</p>
+            <form class="booking-form" id="booking-form">
+                <div class="booking-form-columns">
+                    <div class="booking-form-col">
+                        <label for="booking-name">Namn</label>
+                        <input type="text" id="booking-name" name="name" required placeholder="Ditt namn">
+                        <label for="booking-phone">Telefonnummer</label>
+                        <input type="tel" id="booking-phone" name="phone" required placeholder="t.ex. 070-123 45 67">
+                        <label for="booking-email">E-postadress</label>
+                        <input type="email" id="booking-email" name="email" required placeholder="din@epost.se">
+                        <label for="booking-regno">Registreringsnummer</label>
+                        <input type="text" id="booking-regno" name="registration" placeholder="t.ex. ABC 123" maxlength="10">
+                    </div>
+                    <div class="booking-form-col">
+                        <span class="booking-field-label">Vad vill du få hjälp med?</span>
+                        <div class="booking-services">
+                            <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Exterior Detailing"> Exterior Detailing</label>
+                            <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Interior Detailing"> Interior Detailing</label>
+                            <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Paint Correction"> Paint Correction</label>
+                            <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Ceramic Coating"> Ceramic Coating</label>
+                            <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Engine Restoration"> Engine Restoration</label>
+                            <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Polimering"> Polimering</label>
+                        </div>
+                        <label for="booking-extra">Ytterligare information</label>
+                        <textarea id="booking-extra" name="extra" rows="4" placeholder="Beskriv kort om du vill tillägga något..."></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Skicka förfrågan</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Set your Railway backend URL when deploying (e.g. https://your-app.railway.app) -->
+    <script>window.ALEX_BOOKING_API_URL = '';</script>
+    <script src="script.js"></script>
+</body>
+</html>
