@@ -254,3 +254,48 @@ window.addEventListener('scroll', () => {
     
     lastScroll = currentScroll;
 });
+
+// Health check: test backend connection on page load
+(function checkApiHealth() {
+    const el = document.getElementById('api-health-status');
+    const apiBase = (typeof window.ALEX_BOOKING_API_URL !== 'undefined' && window.ALEX_BOOKING_API_URL)
+        ? String(window.ALEX_BOOKING_API_URL).trim().replace(/\/$/, '')
+        : '';
+    const apiKey = (typeof window.ALEX_BOOKING_API_KEY !== 'undefined' && window.ALEX_BOOKING_API_KEY)
+        ? String(window.ALEX_BOOKING_API_KEY).trim()
+        : '';
+
+    function setStatus(text, ok) {
+        if (el) {
+            el.textContent = text;
+            el.className = 'api-health-status ' + (ok ? 'api-health-ok' : 'api-health-fail');
+        }
+    }
+
+    if (!apiBase || !apiKey) {
+        setStatus('', false);
+        return;
+    }
+
+    setStatus('API: Kontrollerar…', false);
+    fetch(apiBase + '/health', {
+        method: 'GET',
+        headers: { 'X-API-Key': apiKey }
+    })
+        .then(function (res) {
+            const ok = res.ok;
+            return res.json().catch(function () { return {}; }).then(function (data) {
+                if (ok && (data.status === 'up' || data.status === 'ok')) {
+                    setStatus('API: Ansluten', true);
+                    console.log('[Mek Performance] Backend health OK', data);
+                } else {
+                    setStatus('API: Ej ansluten', false);
+                    console.warn('[Mek Performance] Backend health failed', res.status, data);
+                }
+            });
+        })
+        .catch(function (err) {
+            setStatus('API: Ej ansluten', false);
+            console.warn('[Mek Performance] Backend health error', err);
+        });
+})();
