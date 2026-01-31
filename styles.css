@@ -431,6 +431,22 @@ body {
     accent-color: var(--accent-color);
 }
 
+/* Show price only when the option is selected */
+.booking-form .booking-option-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+}
+.booking-form .booking-option-price-below {
+    display: none;
+    color: var(--accent-color);
+    font-size: 0.95rem;
+}
+.booking-form .booking-option-row.checked .booking-option-price-below {
+    display: inline;
+}
+
 @media (max-width: 640px) {
     .booking-modal-content {
         max-width: 100%;
