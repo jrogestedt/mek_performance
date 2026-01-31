@@ -315,6 +315,17 @@
         </div>
     </div>
 
+    <!-- Feedback Modal (same design as Boka – success/error after submit) -->
+    <div class="booking-modal feedback-modal" id="feedback-modal" aria-hidden="true">
+        <div class="booking-modal-overlay"></div>
+        <div class="booking-modal-content feedback-modal-content">
+            <button type="button" class="booking-modal-close feedback-modal-close" aria-label="Stäng">&times;</button>
+            <h2 class="booking-modal-title" id="feedback-modal-title">Tack</h2>
+            <p class="booking-modal-intro" id="feedback-modal-message"></p>
+            <button type="button" class="btn btn-primary feedback-modal-btn">Stäng</button>
+        </div>
+    </div>
+
     <!-- Lead API (Odoo backend on Railway). Replace with env/build vars if you need to hide the key. -->
     <script>
         window.ALEX_BOOKING_API_URL = 'https://odoobackend-production-c3c9.up.railway.app';

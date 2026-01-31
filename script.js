@@ -1,9 +1,17 @@
 // Booking Modal
 const bookingModal = document.getElementById('booking-modal');
 const openBookingButtons = document.querySelectorAll('.open-booking-modal');
-const closeBookingButton = document.querySelector('.booking-modal-close');
-const bookingOverlay = document.querySelector('.booking-modal-overlay');
+const closeBookingButton = document.querySelector('#booking-modal .booking-modal-close');
+const bookingOverlay = document.querySelector('#booking-modal .booking-modal-overlay');
 const bookingForm = document.getElementById('booking-form');
+
+// Feedback Modal (same design as Boka)
+const feedbackModal = document.getElementById('feedback-modal');
+const feedbackModalClose = document.querySelector('.feedback-modal-close');
+const feedbackModalOverlay = document.querySelector('#feedback-modal .booking-modal-overlay');
+const feedbackModalBtn = document.querySelector('.feedback-modal-btn');
+const feedbackModalTitle = document.getElementById('feedback-modal-title');
+const feedbackModalMessage = document.getElementById('feedback-modal-message');
 
 function openBookingModal() {
     if (bookingModal) {
@@ -21,6 +29,26 @@ function closeBookingModal() {
     }
 }
 
+function openFeedbackModal(title, message) {
+    if (feedbackModal && feedbackModalTitle && feedbackModalMessage) {
+        feedbackModalTitle.textContent = title;
+        feedbackModalMessage.textContent = message;
+        feedbackModal.classList.add('active');
+        feedbackModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+
+function closeFeedbackModal() {
+    if (feedbackModal) {
+        feedbackModal.classList.remove('active');
+        feedbackModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+}
+
+
 openBookingButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -36,8 +64,21 @@ if (bookingOverlay) {
     bookingOverlay.addEventListener('click', closeBookingModal);
 }
 
+if (feedbackModalClose) {
+    feedbackModalClose.addEventListener('click', closeFeedbackModal);
+}
+if (feedbackModalOverlay) {
+    feedbackModalOverlay.addEventListener('click', closeFeedbackModal);
+}
+if (feedbackModalBtn) {
+    feedbackModalBtn.addEventListener('click', closeFeedbackModal);
+}
+
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && bookingModal && bookingModal.classList.contains('active')) {
+    if (e.key !== 'Escape') return;
+    if (feedbackModal && feedbackModal.classList.contains('active')) {
+        closeFeedbackModal();
+    } else if (bookingModal && bookingModal.classList.contains('active')) {
         closeBookingModal();
     }
 });
@@ -82,7 +123,8 @@ if (bookingForm) {
 
         try {
             if (!apiBase || !apiKey) {
-                alert('Ett fel uppstod, var god försök igen.');
+                closeBookingModal();
+                openFeedbackModal('Ett fel uppstod', 'Ett fel uppstod, var god försök igen.');
                 return;
             }
             const res = await fetch(apiBase + '/api/lead', {
@@ -94,15 +136,17 @@ if (bookingForm) {
                 body: JSON.stringify(leadPayload)
             });
             if (res.ok) {
-                alert('Tack för din förfrågan, vi återkommer inom 24h.');
                 closeBookingModal();
                 bookingForm.reset();
+                openFeedbackModal('Tack', 'Tack för din förfrågan, vi återkommer inom 24h.');
             } else {
-                alert('Ett fel uppstod, var god försök igen.');
+                closeBookingModal();
+                openFeedbackModal('Ett fel uppstod', 'Ett fel uppstod, var god försök igen.');
             }
         } catch (err) {
             console.error(err);
-            alert('Ett fel uppstod, var god försök igen.');
+            closeBookingModal();
+            openFeedbackModal('Ett fel uppstod', 'Ett fel uppstod, var god försök igen.');
         } finally {
             submitBtn.disabled = false;
             submitBtn.textContent = originalText;
