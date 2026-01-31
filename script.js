@@ -75,69 +75,39 @@ if (bookingForm) {
         if (phone) leadPayload.phone = phone;
         if (messageStr) leadPayload.message = messageStr;
 
-        if (apiBase && apiKey) {
-            const submitBtn = bookingForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Skickar...';
-            try {
-                const res = await fetch(apiBase + '/api/lead', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-API-Key': apiKey
-                    },
-                    body: JSON.stringify(leadPayload)
-                });
-                const data = await res.json().catch(function () { return {}; });
-                if (res.ok) {
-                    // Spec: 200 → { "status": "ok", "lead_id": 42 }
-                    if (data.status === 'ok') {
-                        alert('Tack! Vi återkommer till dig.');
-                        closeBookingModal();
-                        bookingForm.reset();
-                    } else {
-                        alert(data.detail || 'Något gick fel. Försök igen.');
-                    }
-                } else {
-                    // Spec: errors have "detail" (string or validation array)
-                    const detail = data.detail;
-                    let msg = 'Något gick fel. Försök igen.';
-                    if (res.status === 401) msg = 'Ogiltig konfiguration. Kontakta oss gärna direkt.';
-                    else if (res.status === 429) msg = 'För många försök. Vänta en stund och försök igen.';
-                    else if (typeof detail === 'string') msg = detail;
-                    else if (Array.isArray(detail) && detail.length) msg = detail.map(function (d) { return d.msg || d.loc; }).filter(Boolean).join(' ') || msg;
-                    alert(msg);
-                }
-            } catch (err) {
-                console.error(err);
-                fallbackMailto(name, phone, email, registration, checkedServices, extra);
+        const submitBtn = bookingForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Skickar...';
+
+        try {
+            if (!apiBase || !apiKey) {
+                alert('Ett fel uppstod, var god försök igen.');
+                return;
+            }
+            const res = await fetch(apiBase + '/api/lead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-Key': apiKey
+                },
+                body: JSON.stringify(leadPayload)
+            });
+            if (res.ok) {
+                alert('Tack för din förfrågan, vi återkommer inom 24h.');
                 closeBookingModal();
                 bookingForm.reset();
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
+            } else {
+                alert('Ett fel uppstod, var god försök igen.');
             }
-        } else {
-            fallbackMailto(name, phone, email, registration, checkedServices, extra);
-            closeBookingModal();
-            bookingForm.reset();
+        } catch (err) {
+            console.error(err);
+            alert('Ett fel uppstod, var god försök igen.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
         }
     });
-}
-
-function fallbackMailto(name, phone, email, registration, services, extra) {
-    const servicesText = services.length > 0 ? services.join(', ') : '-';
-    const subject = encodeURIComponent('Bokningsförfrågan från ' + name);
-    const body = encodeURIComponent(
-        'Namn: ' + name + '\n' +
-        'Telefon: ' + phone + '\n' +
-        'E-post: ' + email + '\n' +
-        'Registreringsnummer: ' + (registration || '-') + '\n\n' +
-        'Önskade tjänster: ' + servicesText + '\n\n' +
-        'Ytterligare information:\n' + (extra || '-')
-    );
-    window.location.href = 'mailto:mek.performance@gmail.com?subject=' + subject + '&body=' + body;
 }
 
 // Mobile Menu Toggle
