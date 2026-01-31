@@ -380,7 +380,8 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
-// Google reviews: fetch real data from backend (Google Places API proxy)
+// Google reviews: GET {API_BASE}/api/google-reviews (no auth). On 200: show rating, user_ratings_total, reviews.
+// On 503 or failure: keep existing static fallback in HTML. Same API base as booking; CORS handled by backend.
 (function loadGoogleReviews() {
     var reviewsBase = (typeof window.ALEX_REVIEWS_API_URL !== 'undefined' && window.ALEX_REVIEWS_API_URL)
         ? String(window.ALEX_REVIEWS_API_URL).trim().replace(/\/$/, '')
@@ -401,7 +402,7 @@ window.addEventListener('scroll', () => {
 
     fetch(reviewsBase + '/api/google-reviews', { method: 'GET' })
         .then(function (res) {
-            if (!res.ok) return null;
+            if (!res.ok) return null; /* 503 or other error: keep static fallback */
             return res.json();
         })
         .then(function (data) {
