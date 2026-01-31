@@ -59,16 +59,21 @@ if (bookingForm) {
             ? String(window.ALEX_BOOKING_API_KEY).trim()
             : '';
 
-        // Lead API: name, email, phone?, message?
+        // Lead API spec: POST /api/lead, body { name, email, phone?, message? }
         const servicesText = checkedServices.length > 0 ? checkedServices.join(', ') : '';
         const messageParts = [
             registration && 'Registreringsnummer: ' + registration,
             servicesText && 'Önskade tjänster: ' + servicesText,
             extra && 'Ytterligare information: ' + extra
         ].filter(Boolean);
-        const message = messageParts.join('\n\n') || undefined;
+        const messageStr = messageParts.join('\n\n') || '';
 
-        const leadPayload = { name, email, phone: phone || undefined, message };
+        const leadPayload = {
+            name: name,
+            email: email
+        };
+        if (phone) leadPayload.phone = phone;
+        if (messageStr) leadPayload.message = messageStr;
 
         if (apiBase && apiKey) {
             const submitBtn = bookingForm.querySelector('button[type="submit"]');
@@ -84,18 +89,24 @@ if (bookingForm) {
                     },
                     body: JSON.stringify(leadPayload)
                 });
-                const data = await res.json().catch(() => ({}));
+                const data = await res.json().catch(function () { return {}; });
                 if (res.ok) {
-                    alert(data.status === 'ok' ? 'Tack! Vi återkommer till dig.' : (data.message || 'Tack!'));
-                    closeBookingModal();
-                    bookingForm.reset();
+                    // Spec: 200 → { "status": "ok", "lead_id": 42 }
+                    if (data.status === 'ok') {
+                        alert('Tack! Vi återkommer till dig.');
+                        closeBookingModal();
+                        bookingForm.reset();
+                    } else {
+                        alert(data.detail || 'Något gick fel. Försök igen.');
+                    }
                 } else {
+                    // Spec: errors have "detail" (string or validation array)
                     const detail = data.detail;
                     let msg = 'Något gick fel. Försök igen.';
                     if (res.status === 401) msg = 'Ogiltig konfiguration. Kontakta oss gärna direkt.';
                     else if (res.status === 429) msg = 'För många försök. Vänta en stund och försök igen.';
                     else if (typeof detail === 'string') msg = detail;
-                    else if (Array.isArray(detail) && detail[0] && detail[0].msg) msg = detail.map(d => d.msg).join(' ');
+                    else if (Array.isArray(detail) && detail.length) msg = detail.map(function (d) { return d.msg || d.loc; }).filter(Boolean).join(' ') || msg;
                     alert(msg);
                 }
             } catch (err) {
