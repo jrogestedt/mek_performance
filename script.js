@@ -100,7 +100,7 @@ if (bookingForm) {
             ? String(window.ALEX_BOOKING_API_KEY).trim()
             : '';
 
-        // Lead API spec: POST /api/lead, body { name, email, phone?, message? }
+        // Lead API spec: POST /api/lead — name, email (required); phone?, message?, expected_revenue?, probability?, date_deadline? (optional)
         const servicesText = checkedServices.length > 0 ? checkedServices.join(', ') : '';
         const messageParts = [
             registration && 'Registreringsnummer: ' + registration,
@@ -115,6 +115,7 @@ if (bookingForm) {
         };
         if (phone) leadPayload.phone = phone;
         if (messageStr) leadPayload.message = messageStr;
+        // Optional: expected_revenue (number), probability (0–100), date_deadline ('YYYY-MM-DD') — add when form collects them
 
         const submitBtn = bookingForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.textContent;

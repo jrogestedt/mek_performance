@@ -508,6 +508,143 @@ body {
     line-height: 1.8;
 }
 
+.welcome-motoroptimering {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+}
+
+.motoroptimering-heading {
+    margin-bottom: 0.75rem;
+    margin-top: 0;
+}
+
+.motoroptimering-text {
+    font-size: 1.05rem;
+    color: var(--text-light);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* Reviews block (inside Welcome) */
+.reviews-block {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.reviews-heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--white);
+}
+
+.google-score {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.google-score-value {
+    display: inline-block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+}
+
+.google-score-stars {
+    display: inline-block;
+    color: var(--accent-color);
+    font-size: 1.25rem;
+    letter-spacing: 2px;
+    margin-left: 0.35rem;
+    vertical-align: middle;
+}
+
+.google-score-label {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin: 0.5rem 0 0 0;
+}
+
+.google-score-label strong {
+    color: var(--white);
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.review-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.review-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.review-stars {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.75rem;
+}
+
+.review-quote {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+    font-style: normal;
+}
+
+.review-author {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-style: normal;
+}
+
+.reviews-cta {
+    text-align: center;
+    margin: 0;
+}
+
+.reviews-link {
+    display: inline-block;
+    padding: 0.6rem 1.25rem;
+    background: transparent;
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.reviews-link:hover {
+    background: var(--accent-color);
+    color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Services Section */
 .services {
     padding: 5rem 0;
