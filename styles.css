@@ -376,6 +376,39 @@ body {
     margin-bottom: 0.5rem;
 }
 
+.booking-form .booking-categories {
+    margin-bottom: 1rem;
+}
+
+.booking-form .booking-category-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.booking-form .booking-category-label input {
+    width: auto;
+    margin: 0;
+    accent-color: var(--accent-color);
+}
+
+.booking-form .booking-service-subgroup {
+    display: none;
+    grid-template-columns: 1fr;
+    gap: 0.5rem 0;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    border-left: 2px solid var(--accent-color);
+}
+
+.booking-form .booking-service-subgroup.visible {
+    display: grid;
+}
+
 .booking-form .booking-services {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -396,6 +429,24 @@ body {
     width: auto;
     margin: 0;
     accent-color: var(--accent-color);
+}
+
+.booking-form .booking-option-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.booking-form .booking-option-price-below {
+    display: none;
+    font-size: 0.85em;
+    color: var(--accent-color);
+    font-weight: 500;
+    margin-left: 1.5rem;
+}
+
+.booking-form .booking-option-row.checked .booking-option-price-below {
+    display: block;
 }
 
 @media (max-width: 640px) {
@@ -509,9 +560,9 @@ body {
 }
 
 .welcome-motoroptimering {
-    margin-top: 2.5rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     text-align: center;
 }
 
@@ -659,17 +710,46 @@ body {
 }
 
 .service-card {
-    background: #1a1a1a;
+    position: relative;
     padding: 2.5rem;
     border-radius: 10px;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
     border: 1px solid var(--border-color);
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: inherit;
+}
+
+.service-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.service-card-1 { background-image: url('images/exteriör.jpg'); }
+.service-card-2 { background-image: url('images/interiör.jpg'); }
+.service-card-3 { background-image: url('images/polering.jpg'); }
+.service-card-4 { background-image: url('images/lackförsegling.jpg'); }
+.service-card-5 { background-image: url('images/motortvätt.jpg'); }
+.service-card-6 { background-image: url('images/motoroptimering.jpg'); }
 
 .service-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .service-number {
@@ -684,6 +764,127 @@ body {
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--white);
+}
+
+/* Service detail modal (flip popup) */
+.service-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.service-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.service-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+
+.service-modal-content {
+    position: relative;
+    background: var(--primary-color);
+    color: var(--white);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 560px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-color);
+    transform: perspective(800px) rotateY(-180deg);
+    transition: transform 0.5s ease;
+}
+
+.service-modal.active .service-modal-content {
+    transform: perspective(800px) rotateY(0deg);
+}
+
+.service-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--white);
+    font-size: 1.75rem;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.service-modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent-color);
+}
+
+.service-modal-title {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    padding-right: 2.5rem;
+}
+
+.service-modal-general {
+    font-size: 1rem;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.service-modal-includes {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.service-modal-includes h4 {
+    font-size: 1rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+}
+
+.service-modal-includes ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.service-modal-includes li {
+    margin-bottom: 0.25rem;
+}
+
+.service-modal-includes .service-modal-price {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    margin: 0.25rem 0 0 0;
+}
+
+.service-modal-includes .service-modal-price-list {
+    margin: 0.25rem 0 0 0;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.service-modal-includes .service-modal-price-list li {
+    margin-bottom: 0.15rem;
 }
 
 /* FAQ Section */

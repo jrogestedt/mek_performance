@@ -18,7 +18,6 @@
                     <ul class="nav-list">
                         <li><a href="#hem">Hem</a></li>
                         <li><a href="#tjanster">Tjänster</a></li>
-                        <li><a href="#galleri">Galleri</a></li>
                         <li><a href="#kontakt">Kontakt</a></li>
                     </ul>
                 </nav>
@@ -69,24 +68,23 @@
     <section class="welcome">
         <div class="container">
             <h2 class="section-title">Välkommen till Mek Performance</h2>
-            <p class="welcome-subtitle">Premium rekond</p>
-            <p class="welcome-text">
-                Från invändig djuprengöring till långvarigt keramiskt lackskydd – vi återställer och skyddar din bil med precision, omtanke och perfektion.
-            </p>
             <div class="welcome-motoroptimering">
                 <h3 class="welcome-subtitle motoroptimering-heading">Motoroptimering</h3>
                 <p class="motoroptimering-text">Vi erbjuder motoroptimering för minskad bränsleförbrukning och prestandaoptimering – så att din bil går effektivare och känns som ny.</p>
             </div>
+            <p class="welcome-subtitle">Premium rekond</p>
+            <p class="welcome-text">
+                Från invändig djuprengöring till långvarigt keramiskt lackskydd – vi återställer och skyddar din bil med precision, omtanke och perfektion.
+            </p>
             <div class="reviews-block">
                 <h3 class="reviews-heading">Vad våra kunder säger</h3>
-                <!-- Uppdatera betyg och antal med siffror från er Google-sida -->
                 <div class="google-score">
-                    <span class="google-score-value">4,9</span>
+                    <span id="google-score-value" class="google-score-value">5,0</span>
                     <span class="google-score-stars" aria-hidden="true">★★★★★</span>
-                    <p class="google-score-label">baserat på <strong>12</strong> recensioner på Google</p>
+                    <p id="google-score-label" class="google-score-label">baserat på <strong>7</strong> recensioner på Google</p>
                 </div>
-                <div class="reviews-grid">
-                    <!-- Ersätt citat och namn med riktiga recensioner från Google -->
+                <div id="reviews-grid" class="reviews-grid">
+                    <!-- Fallback: replaced by real Google reviews when API is configured -->
                     <div class="review-card">
                         <div class="review-stars" aria-hidden="true">★★★★★</div>
                         <blockquote class="review-quote">Fantastiskt jobb! Bilen såg ut som ny efter keramiskt lackskydd. Rekommenderar varmt.</blockquote>
@@ -127,36 +125,47 @@
     <section class="services" id="tjanster">
         <div class="container">
             <div class="services-grid">
-                <div class="service-card">
+                <div class="service-card service-card-1" data-service="1" tabindex="0" role="button">
                     <div class="service-number">01</div>
                     <h3 class="service-title">Exteriör rekond</h3>
                 </div>
-                <div class="service-card">
+                <div class="service-card service-card-2" data-service="2" tabindex="0" role="button">
                     <div class="service-number">02</div>
                     <h3 class="service-title">Interiör rekond</h3>
                 </div>
-                <div class="service-card">
+                <div class="service-card service-card-3" data-service="3" tabindex="0" role="button">
                     <div class="service-number">03</div>
-                    <h3 class="service-title">Paint Correction</h3>
+                    <h3 class="service-title">Polering</h3>
                 </div>
-                <div class="service-card">
+                <div class="service-card service-card-4" data-service="4" tabindex="0" role="button">
                     <div class="service-number">04</div>
-                    <h3 class="service-title">Ceramic Coating</h3>
+                    <h3 class="service-title">Lackförsegling</h3>
                 </div>
-                <div class="service-card">
+                <div class="service-card service-card-5" data-service="5" tabindex="0" role="button">
                     <div class="service-number">05</div>
-                    <h3 class="service-title">Engine Restoration</h3>
+                    <h3 class="service-title">Motortvätt</h3>
                 </div>
-                <div class="service-card">
+                <div class="service-card service-card-6" data-service="6" tabindex="0" role="button">
                     <div class="service-number">06</div>
-                    <h3 class="service-title">Polimering</h3>
+                    <h3 class="service-title">Motoroptimering</h3>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Service detail modal (flip popup) -->
+    <div class="service-modal" id="service-modal" aria-hidden="true">
+        <div class="service-modal-overlay"></div>
+        <div class="service-modal-content">
+            <button type="button" class="service-modal-close" aria-label="Stäng">&times;</button>
+            <h2 class="service-modal-title" id="service-modal-title"></h2>
+            <p class="service-modal-general" id="service-modal-general"></p>
+            <div class="service-modal-includes" id="service-modal-includes"></div>
+        </div>
+    </div>
+
     <!-- FAQ Section -->
-    <section class="faq">
+    <section class="faq" id="faq">
         <div class="container">
             <h2 class="section-title">Vanliga frågor</h2>
             <div class="faq-list">
@@ -222,60 +231,6 @@
         </div>
     </section>
 
-    <!-- Gallery Section -->
-    <section class="gallery" id="galleri">
-        <div class="container">
-            <h2 class="section-title">Galleri</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&h=400&fit=crop" alt="Galleri bild 1">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1492144534654-ae79c964c9d7?w=600&h=400&fit=crop" alt="Galleri bild 2">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop" alt="Galleri bild 3">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600&h=400&fit=crop" alt="Galleri bild 4">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&h=400&fit=crop" alt="Galleri bild 5">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1492144534654-ae79c964c9d7?w=600&h=400&fit=crop" alt="Galleri bild 6">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop" alt="Galleri bild 7">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600&h=400&fit=crop" alt="Galleri bild 8">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&h=400&fit=crop" alt="Galleri bild 9">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1492144534654-ae79c964c9d7?w=600&h=400&fit=crop" alt="Galleri bild 10">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop" alt="Galleri bild 11">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600&h=400&fit=crop" alt="Galleri bild 12">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&h=400&fit=crop" alt="Galleri bild 13">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1492144534654-ae79c964c9d7?w=600&h=400&fit=crop" alt="Galleri bild 14">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&h=400&fit=crop" alt="Galleri bild 15">
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -291,7 +246,7 @@
                     <ul class="footer-links">
                         <li><a href="#hem">Om oss</a></li>
                         <li><a href="#tjanster">Tjänster</a></li>
-                        <li><a href="#galleri">FAQ</a></li>
+                        <li><a href="#faq">FAQ</a></li>
                         <li><a href="#kontakt">Kontakt</a></li>
                     </ul>
                 </div>
@@ -332,14 +287,90 @@
                     </div>
                     <div class="booking-form-col">
                         <span class="booking-field-label">Vad vill du få hjälp med?</span>
-                        <div class="booking-services">
-                            <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Motoroptimering"> Motoroptimering</label>
-                            <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Exteriör rekond"> Exteriör rekond</label>
-                            <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Interiör rekond"> Interiör rekond</label>
-                            <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Lackkorrigering"> Lackkorrigering</label>
-                            <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Keramiskt lackskydd"> Keramiskt lackskydd</label>
-                            <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Motorrestaurering"> Motorrestaurering</label>
-                            <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Polimering"> Polimering</label>
+                        <div class="booking-categories">
+                            <label class="booking-category-label">
+                                <input type="checkbox" class="booking-category-toggle" data-category="motor" id="cat-motor"> Motoroptimering
+                            </label>
+                            <div class="booking-service-subgroup" id="booking-subgroup-motor" aria-hidden="true">
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Steg 1"> Steg 1</label>
+                                    <span class="booking-option-price-below">4 495 kr</span>
+                                </div>
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Steg 2"> Steg 2</label>
+                                    <span class="booking-option-price-below">Kontakta för offert</span>
+                                </div>
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="AdBlue off"> AdBlue off</label>
+                                    <span class="booking-option-price-below">4 995 kr</span>
+                                </div>
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Decat"> Decat</label>
+                                    <span class="booking-option-price-below">från 1 495 kr</span>
+                                </div>
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="DPF OFF"> DPF OFF</label>
+                                    <span class="booking-option-price-below">från 2 995 kr</span>
+                                </div>
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Cylinder OFF"> Cylinder OFF</label>
+                                    <span class="booking-option-price-below">1 895 kr</span>
+                                </div>
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="EGR OFF"> EGR OFF</label>
+                                    <span class="booking-option-price-below">1 995 kr (995 kr vid optimering)</span>
+                                </div>
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Pops & Bangs"> Pops & Bangs</label>
+                                    <span class="booking-option-price-below">2 495 kr</span>
+                                </div>
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Pops & Bangs med AV/PÅ"> Pops & Bangs med AV/PÅ</label>
+                                    <span class="booking-option-price-below">3 495 kr</span>
+                                </div>
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Cold start Delete"> Cold start Delete</label>
+                                    <span class="booking-option-price-below">949 kr</span>
+                                </div>
+                            </div>
+                            <label class="booking-category-label">
+                                <input type="checkbox" class="booking-category-toggle" data-category="vaxellada" id="cat-vaxellada"> Växellådsoptimering
+                            </label>
+                            <div class="booking-service-subgroup" id="booking-subgroup-vaxellada" aria-hidden="true">
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Växellåda Steg 1"> Steg 1</label>
+                                    <span class="booking-option-price-below">3 495 kr</span>
+                                </div>
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Växellåda Steg 2"> Steg 2</label>
+                                    <span class="booking-option-price-below">3 995 kr</span>
+                                </div>
+                            </div>
+                            <label class="booking-category-label">
+                                <input type="checkbox" class="booking-category-toggle" data-category="bilvard" id="cat-bilvard"> Bilvård
+                            </label>
+                            <div class="booking-service-subgroup" id="booking-subgroup-bilvard" aria-hidden="true">
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Exteriör rekond"> Exteriör rekond</label>
+                                    <span class="booking-option-price-below">från 2 000 kr</span>
+                                </div>
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Interiör rekond"> Interiör rekond</label>
+                                    <span class="booking-option-price-below">från 2 000 kr</span>
+                                </div>
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Lackkorrigering"> Lackkorrigering</label>
+                                    <span class="booking-option-price-below">från 2 000 kr</span>
+                                </div>
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Keramiskt lackskydd"> Keramiskt lackskydd</label>
+                                    <span class="booking-option-price-below">från 2 000 kr</span>
+                                </div>
+                                <div class="booking-option-row">
+                                    <label class="booking-checkbox-label"><input type="checkbox" name="services" value="Motorrestaurering"> Motorrestaurering</label>
+                                    <span class="booking-option-price-below">från 2 000 kr</span>
+                                </div>
+                            </div>
                         </div>
                         <label for="booking-extra">Ytterligare information</label>
                         <textarea id="booking-extra" name="extra" rows="4" placeholder="Beskriv kort om du vill tillägga något..."></textarea>
@@ -361,10 +392,11 @@
         </div>
     </div>
 
-    <!-- Lead API (Odoo backend on Railway). Replace with env/build vars if you need to hide the key. -->
+    <!-- Lead API + Google reviews (Odoo backend on Railway). Replace with env/build vars if you need to hide the key. -->
     <script>
         window.ALEX_BOOKING_API_URL = 'https://odoobackend-production-c3c9.up.railway.app';
         window.ALEX_BOOKING_API_KEY = 'ff94829249676f4c1413417be10202aac74446076c65bdb5dc7c678034ba64e7';
+        window.ALEX_REVIEWS_API_URL = 'https://odoobackend-production-c3c9.up.railway.app';
     </script>
     <script src="script.js"></script>
 </body>
