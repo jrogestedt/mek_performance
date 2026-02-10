@@ -2,10 +2,12 @@
 
 The frontend gets **CORS errors** when calling the backend from another origin (e.g. localhost, Live Server, or the production frontend).
 
+**If the live site (https://www.mekperformance.se) shows "No 'Access-Control-Allow-Origin' header" and reviews/health don’t load:** the Railway backend must allow your production origin. In the backend’s **Variables**, set `CORS_ORIGINS` to include `https://www.mekperformance.se` (and `https://mekperformance.se` if you use it). Then ensure every API response sends `Access-Control-Allow-Origin` (see sections below). Redeploy the backend after changing variables.
+
 **Opening the page as a file (`file:///...`)** gives origin `null`. Browsers block cross-origin requests from `null`, and backends typically do not allow `null` in CORS. To avoid CORS errors and get real Google reviews locally, **run the site with a local HTTP server** and open it by URL, e.g.:
 
-- In this project: `npm start` then open **http://localhost:3000**
-- Add `http://localhost:3000` (and any port you use) to the backend’s `CORS_ORIGINS` (see below).
+- **Rekommenderat:** Kör **`npm run dev`** och öppna **http://localhost:3000**. Dev-servern proxar API-anrop till Railway (samma origin → inga CORS-problem), så du ser riktiga Google-recensioner och kan skicka bokningar lokalt.
+- Alternativt: `npm start` och lägg till `http://localhost:3000` i backendens `CORS_ORIGINS` (se nedan).
 
 Affected requests:
 - **GET /api/google-reviews** – no custom headers, but response must include CORS headers
@@ -18,15 +20,16 @@ If the preflight returns **400**, the browser never sends the real request and y
 
 ### 1. Set `CORS_ORIGINS`
 
-Include every origin the site is loaded from (no trailing slash).
+Include **every** origin the site is loaded from (no trailing slash). **Production must be included** or you get CORS errors on the live site.
 
 In Railway: **backend** service → **Variables** → add or edit:
 
 ```text
-CORS_ORIGINS = https://mekperformance-production.up.railway.app, http://localhost:5500, http://localhost:3000, http://127.0.0.1:5500
+CORS_ORIGINS = https://www.mekperformance.se, https://mekperformance.se, https://mekperformance-production.up.railway.app, http://localhost:5500, http://localhost:3000, http://127.0.0.1:5500
 ```
 
-Add any port you use locally (e.g. Live Server often uses 5500, `npx serve` uses 3000).
+- **Production:** `https://www.mekperformance.se` and `https://mekperformance.se` (if you use both domains) – without these, the deployed site at www.mekperformance.se will get "No 'Access-Control-Allow-Origin' header" and reviews/health/booking will fail.
+- Add any port you use locally (e.g. Live Server 5500, `npm run dev` 3000).
 
 ### 2. OPTIONS (preflight) must return 200
 

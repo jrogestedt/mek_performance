@@ -141,9 +141,12 @@ if (bookingForm) {
         const checkedServices = Array.from(bookingForm.querySelectorAll('input[name="services"]:checked')).map(cb => cb.value);
         const extra = document.getElementById('booking-extra').value.trim();
 
-        const apiBase = (typeof window.ALEX_BOOKING_API_URL !== 'undefined' && window.ALEX_BOOKING_API_URL)
-            ? String(window.ALEX_BOOKING_API_URL).trim().replace(/\/$/, '')
-            : '';
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const apiBase = isLocalhost
+            ? ''
+            : (typeof window.ALEX_BOOKING_API_URL !== 'undefined' && window.ALEX_BOOKING_API_URL)
+                ? String(window.ALEX_BOOKING_API_URL).trim().replace(/\/$/, '')
+                : '';
         const apiKey = (typeof window.ALEX_BOOKING_API_KEY !== 'undefined' && window.ALEX_BOOKING_API_KEY)
             ? String(window.ALEX_BOOKING_API_KEY).trim()
             : '';
@@ -180,12 +183,12 @@ if (bookingForm) {
         submitBtn.textContent = 'Skickar...';
 
         try {
-            if (!apiBase || !apiKey) {
+            if ((!apiBase && !isLocalhost) || !apiKey) {
                 closeBookingModal();
                 openFeedbackModal('Ett fel uppstod', 'Ett fel uppstod, var god försök igen.');
                 return;
             }
-            const res = await fetch(apiBase + '/api/lead', {
+            const res = await fetch((apiBase || '') + '/api/lead', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -383,18 +386,22 @@ window.addEventListener('scroll', () => {
 // Google reviews: GET {API_BASE}/api/google-reviews (no auth). On 200: show rating, user_ratings_total, reviews.
 // On 503 or failure: keep existing static fallback in HTML. Same API base as booking; CORS handled by backend.
 // When opening as file (origin 'null'), skip fetch to avoid CORS errors; show hint to use a local server.
+// When on localhost, use relative base so the dev proxy (npm run dev) can forward requests without CORS.
 (function loadGoogleReviews() {
-    var reviewsBase = (typeof window.ALEX_REVIEWS_API_URL !== 'undefined' && window.ALEX_REVIEWS_API_URL)
-        ? String(window.ALEX_REVIEWS_API_URL).trim().replace(/\/$/, '')
-        : '';
-    if (!reviewsBase) return;
+    var isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    var reviewsBase = isLocalhost
+        ? ''
+        : (typeof window.ALEX_REVIEWS_API_URL !== 'undefined' && window.ALEX_REVIEWS_API_URL)
+            ? String(window.ALEX_REVIEWS_API_URL).trim().replace(/\/$/, '')
+            : '';
+    if (!reviewsBase && !isLocalhost) return;
     var isFile = window.location.protocol === 'file:' || window.location.origin === 'null';
     if (isFile) {
         var cta = document.querySelector('.reviews-cta');
         if (cta) {
             var hint = document.createElement('p');
             hint.className = 'reviews-local-hint';
-            hint.textContent = 'För att hämta recensioner från Google: öppna sidan via en lokal server (t.ex. npm start, sedan http://localhost:3000).';
+            hint.textContent = 'För att hämta recensioner från Google: kör npm run dev och öppna http://localhost:3000.';
             cta.parentNode.insertBefore(hint, cta);
         }
         return;
@@ -412,7 +419,7 @@ window.addEventListener('scroll', () => {
         return '★'.repeat(n) + '☆'.repeat(5 - n);
     }
 
-    fetch(reviewsBase + '/api/google-reviews', { method: 'GET' })
+    fetch((reviewsBase || '') + '/api/google-reviews', { method: 'GET' })
         .then(function (res) {
             if (!res.ok) return null; /* 503 or other error: keep static fallback */
             return res.json();
@@ -460,9 +467,12 @@ window.addEventListener('scroll', () => {
         if (el) el.textContent = '';
         return;
     }
-    const apiBase = (typeof window.ALEX_BOOKING_API_URL !== 'undefined' && window.ALEX_BOOKING_API_URL)
-        ? String(window.ALEX_BOOKING_API_URL).trim().replace(/\/$/, '')
-        : '';
+    var isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const apiBase = isLocalhost
+        ? ''
+        : (typeof window.ALEX_BOOKING_API_URL !== 'undefined' && window.ALEX_BOOKING_API_URL)
+            ? String(window.ALEX_BOOKING_API_URL).trim().replace(/\/$/, '')
+            : '';
     const apiKey = (typeof window.ALEX_BOOKING_API_KEY !== 'undefined' && window.ALEX_BOOKING_API_KEY)
         ? String(window.ALEX_BOOKING_API_KEY).trim()
         : '';
@@ -474,13 +484,13 @@ window.addEventListener('scroll', () => {
         }
     }
 
-    if (!apiBase || !apiKey) {
+    if ((!apiBase && !isLocalhost) || !apiKey) {
         setStatus('', false);
         return;
     }
 
     setStatus('API: Kontrollerar…', false);
-    fetch(apiBase + '/health', {
+    fetch((apiBase || '') + '/health', {
         method: 'GET',
         headers: { 'X-API-Key': apiKey }
     })

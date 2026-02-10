@@ -395,6 +395,17 @@ body {
     accent-color: var(--accent-color);
 }
 
+.booking-form .booking-category-coming-soon {
+    opacity: 0.65;
+    color: var(--text-muted, #666);
+    cursor: default;
+    pointer-events: none;
+}
+
+.booking-form .booking-category-coming-soon input {
+    cursor: default;
+}
+
 .booking-form .booking-service-subgroup {
     display: none;
     grid-template-columns: 1fr;
