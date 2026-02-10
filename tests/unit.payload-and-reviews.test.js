@@ -19,8 +19,8 @@ const BOOKING_PRICE_MAP = {
   "Cold start Delete": 949,
   "Växellåda Steg 1": 3495,
   "Växellåda Steg 2": 3995,
-  "Exteriör rekond": 2000,
-  "Interiör rekond": 2000,
+  "Exteriör detailing": 2000,
+  "Interiör detailing": 2000,
   Lackkorrigering: 2000,
   "Keramiskt lackskydd": 2000,
   Motorrestaurering: 2000,
@@ -73,7 +73,7 @@ test("totalPriceFromServices: summar endast numeriska priser, hoppar över null"
     4495 + 0 + 4995
   );
   assert.strictEqual(
-    totalPriceFromServices(["Exteriör rekond", "Interiör rekond"]),
+    totalPriceFromServices(["Exteriör detailing", "Interiör detailing"]),
     4000
   );
 });

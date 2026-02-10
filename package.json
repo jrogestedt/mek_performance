@@ -4,9 +4,12 @@
   "type": "module",
   "scripts": {
     "start": "serve . -l ${PORT:-3000}",
+    "dev": "node server.js",
     "test": "node --test \"tests/*.js\""
   },
   "dependencies": {
-    "serve": "^14.2.4"
+    "serve": "^14.2.4",
+    "express": "^4.21.0",
+    "http-proxy-middleware": "^2.0.6"
   }
 }

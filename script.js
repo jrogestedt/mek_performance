@@ -100,8 +100,8 @@ if (bookingForm) {
         'Cold start Delete': 949,
         'Växellåda Steg 1': 3495,
         'Växellåda Steg 2': 3995,
-        'Exteriör rekond': 2000,
-        'Interiör rekond': 2000,
+        'Exteriör detailing': 2000,
+        'Interiör detailing': 2000,
         'Lackkorrigering': 2000,
         'Keramiskt lackskydd': 2000,
         'Motorrestaurering': 2000
@@ -222,14 +222,14 @@ const serviceModalOverlay = document.querySelector('.service-modal-overlay');
 
 const serviceContent = {
     1: {
-        title: 'Exteriör rekond',
-        general: 'Exteriör rekond ger bilens kaross och lack en grundlig rengöring och skydd. Vi tar bort smuts, asfalt och föroreningar utan att skada lacken. Behandlingen förlänger bilens livslängd och ger ett fräscht, välskött utseende. Perfekt som årlig underhållsbehandling eller inför säsongsskifte.',
+        title: 'Exteriör detailing',
+        general: 'Exteriör detailing ger bilens kaross och lack en grundlig rengöring och skydd. Vi tar bort smuts, asfalt och föroreningar utan att skada lacken. Behandlingen förlänger bilens livslängd och ger ett fräscht, välskött utseende. Perfekt som årlig underhållsbehandling eller inför säsongsskifte.',
         includes: '<h4>Detta ingår</h4><ul><li>Avfettning</li><li>Vaxschampo</li><li>Rengöring</li><li>Asfaltsborttagning</li><li>Fälgrengöring</li><li>Avtorkning</li></ul>',
         price: '<h4>Pris från</h4><p class="service-modal-price">Från 2 000 kr</p>'
     },
     2: {
-        title: 'Interiör rekond',
-        general: 'Interiör rekond ger insidan av bilen en djuprengöring från tak till mattor. Vi når alla hörn och rengör materialen försiktigt så att de håller längre. En ren och fräsch interiör är trevligare att sitta i, minskar allergener och höjer bilens värde vid försäljning.',
+        title: 'Interiör detailing',
+        general: 'Interiör detailing ger insidan av bilen en djuprengöring från tak till mattor. Vi når alla hörn och rengör materialen försiktigt så att de håller längre. En ren och fräsch interiör är trevligare att sitta i, minskar allergener och höjer bilens värde vid försäljning.',
         includes: '<h4>Detta ingår</h4><ul><li>Dammsugning</li><li>Invändig rengöring av mattor</li><li>Instrumentpanel</li><li>Fönster</li><li>Dörrfalsar samt fack</li></ul>',
         price: '<h4>Pris från</h4><p class="service-modal-price">Från 2 000 kr</p>'
     },
@@ -253,7 +253,7 @@ const serviceContent = {
     },
     6: {
         title: 'Motoroptimering',
-        general: 'Motoroptimering justerar motorns parametrar för bättre effektivitet och respons. Det kan minska bränsleförbrukningen med 5–20 % beroende på bil och körstil. Du får ofta smidigare körbeteende och bättre drivability. Populärt bland både privatbilister och företag.',
+        general: 'Motoroptimering justerar motorns parametrar för bättre effektivitet och respons. Det kan minska bränsleförbrukningen med 5–20 % beroende på bil och körstil. Du får ofta smidigare körbeteende och bättre körkänsla. Populärt bland både privatbilister och företag.',
         includes: '<h4>Effekt</h4><ul><li>Minskar bränsleförbrukning med 5–20 % beroende på bil</li></ul><h4>Möjliga tillägg och priser</h4><ul class="service-modal-price-list"><li>Steg 1: 4 495 kr</li><li>Steg 2: Kontakta för offert</li><li>AdBlue off: 4 995 kr</li><li>Cylinder OFF: 1 895 kr</li><li>Decat: från 1 495 kr</li><li>DPF OFF: från 2 995 kr</li><li>EGR OFF: 1 995 kr (995 kr vid optimering)</li><li>Pops &amp; Bangs: 2 495 kr</li><li>Pops &amp; Bangs med AV/PÅ: 3 495 kr</li><li>Cold start delete: 949 kr</li></ul>',
         price: ''
     }
@@ -382,11 +382,23 @@ window.addEventListener('scroll', () => {
 
 // Google reviews: GET {API_BASE}/api/google-reviews (no auth). On 200: show rating, user_ratings_total, reviews.
 // On 503 or failure: keep existing static fallback in HTML. Same API base as booking; CORS handled by backend.
+// When opening as file (origin 'null'), skip fetch to avoid CORS errors; show hint to use a local server.
 (function loadGoogleReviews() {
     var reviewsBase = (typeof window.ALEX_REVIEWS_API_URL !== 'undefined' && window.ALEX_REVIEWS_API_URL)
         ? String(window.ALEX_REVIEWS_API_URL).trim().replace(/\/$/, '')
         : '';
     if (!reviewsBase) return;
+    var isFile = window.location.protocol === 'file:' || window.location.origin === 'null';
+    if (isFile) {
+        var cta = document.querySelector('.reviews-cta');
+        if (cta) {
+            var hint = document.createElement('p');
+            hint.className = 'reviews-local-hint';
+            hint.textContent = 'För att hämta recensioner från Google: öppna sidan via en lokal server (t.ex. npm start, sedan http://localhost:3000).';
+            cta.parentNode.insertBefore(hint, cta);
+        }
+        return;
+    }
 
     function escapeHtml(s) {
         if (typeof s !== 'string') return '';
@@ -438,9 +450,16 @@ window.addEventListener('scroll', () => {
         .catch(function () {});
 })();
 
-// Health check: test backend connection on page load
+// Health check: test backend connection on page load.
+// Skip when opening as file (origin 'null') to avoid CORS errors and console noise.
 (function checkApiHealth() {
     const el = document.getElementById('api-health-status');
+    const origin = window.location.origin;
+    const isFile = window.location.protocol === 'file:';
+    if (!origin || origin === 'null' || isFile) {
+        if (el) el.textContent = '';
+        return;
+    }
     const apiBase = (typeof window.ALEX_BOOKING_API_URL !== 'undefined' && window.ALEX_BOOKING_API_URL)
         ? String(window.ALEX_BOOKING_API_URL).trim().replace(/\/$/, '')
         : '';

@@ -1,7 +1,13 @@
 # Backend CORS fix (Odoo backend on Railway)
 
-The frontend gets **CORS errors** when calling the backend from another origin (e.g. localhost, Live Server, or the production frontend). Affected requests:
+The frontend gets **CORS errors** when calling the backend from another origin (e.g. localhost, Live Server, or the production frontend).
 
+**Opening the page as a file (`file:///...`)** gives origin `null`. Browsers block cross-origin requests from `null`, and backends typically do not allow `null` in CORS. To avoid CORS errors and get real Google reviews locally, **run the site with a local HTTP server** and open it by URL, e.g.:
+
+- In this project: `npm start` then open **http://localhost:3000**
+- Add `http://localhost:3000` (and any port you use) to the backend’s `CORS_ORIGINS` (see below).
+
+Affected requests:
 - **GET /api/google-reviews** – no custom headers, but response must include CORS headers
 - **GET /health** – sends `X-API-Key`, so the browser sends a **preflight (OPTIONS)** first; preflight must return **200**, not 400
 - **POST /api/lead** – same: preflight (OPTIONS) then POST; both need CORS
