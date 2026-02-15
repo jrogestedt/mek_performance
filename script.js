@@ -4,6 +4,17 @@ const openBookingButtons = document.querySelectorAll('.open-booking-modal');
 const closeBookingButton = document.querySelector('#booking-modal .booking-modal-close');
 const bookingOverlay = document.querySelector('#booking-modal .booking-modal-overlay');
 const bookingForm = document.getElementById('booking-form');
+const bookingRegnoInput = document.getElementById('booking-regno');
+
+// Registreringsnummer: force uppercase as user types
+if (bookingRegnoInput) {
+    bookingRegnoInput.addEventListener('input', function () {
+        const start = this.selectionStart;
+        const end = this.selectionEnd;
+        this.value = this.value.toUpperCase();
+        this.setSelectionRange(start, end);
+    });
+}
 
 // Feedback Modal (same design as Boka)
 const feedbackModal = document.getElementById('feedback-modal');

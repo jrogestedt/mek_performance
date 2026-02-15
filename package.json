@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "serve . -l ${PORT:-3000}",
+    "start": "node server.js",
     "dev": "node server.js",
     "test": "node --test \"tests/*.js\""
   },
