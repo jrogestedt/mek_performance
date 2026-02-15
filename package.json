@@ -8,8 +8,9 @@
     "test": "node --test \"tests/*.js\""
   },
   "dependencies": {
-    "serve": "^14.2.4",
+    "dotenv": "^16.6.1",
     "express": "^4.21.0",
-    "http-proxy-middleware": "^2.0.6"
+    "http-proxy-middleware": "^2.0.6",
+    "serve": "^14.2.4"
   }
 }
